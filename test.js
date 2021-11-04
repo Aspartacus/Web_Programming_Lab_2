@@ -3,7 +3,6 @@ var first = false;
 function start() {
   //create bear
   bear = new Bear();
-
   document.addEventListener("keydown", moveBear, false);
 
   document.getElementById("speedBear").onchange = function () {
@@ -14,13 +13,19 @@ function start() {
 
   updateBees();
 
-  document.onkeydown = function () {
-    if (first == false) {
+  document.addEventListener("keydown", function (event) {
+    if (
+      first == false &&
+      (event.keyCode == 37 ||
+        event.keyCode == 38 ||
+        event.keyCode == 39 ||
+        event.keyCode == 40)
+    ) {
       first = true;
       lastStingTime = new Date();
       makeBees();
     }
-  };
+  });
 }
 
 function Bear() {
@@ -247,7 +252,23 @@ function overlap(element1, element2) {
 
 function beeButton() {
   if (first == true) {
-    makeBees();
+    //get number of bees specified by the user
+    var addbees = 1;
+    addbees = Number(addbees); //try converting the content of the input to a number
+    if (isNaN(addbees)) {
+      //check that the input field contains a valid number
+      window.alert("Invalid number of bees");
+      return;
+    }
+    //create bees
+    let i = 1;
+    while (i <= addbees) {
+      var num = i;
+      var bee = new Bee(num); //create object and its IMG element
+      bee.display(); //display the bee
+      bees.push(bee); //add the bee object to the bees array
+      i++;
+    }
   }
 }
 
