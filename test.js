@@ -1,4 +1,4 @@
-alert("This alert box was called to protect my sanity");
+//alert("This alert box was called to protect my sanity");
 var first = false;
 function start() {
   //create bear
@@ -252,5 +252,5 @@ function beeButton() {
 }
 
 function restart() {
-  first = false;
+  location.reload();
 }
